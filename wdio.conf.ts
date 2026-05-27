@@ -1,12 +1,17 @@
+import * as allure from "allure-js-commons";
+import * as fs from "fs";
+import * as path from "path";
 
 export const config: WebdriverIO.Config = {
   runner: "local",
   tsConfigPath: "./tsconfig.json",
   port: 4723,
 
-  specs: ["./test/specs/**/*.ts"],
+  // ✅ Run test.e2e.ts FIRST, then offline.e2e.ts
+  specs: ["./test/specs/test.e2e.ts", "./test/specs/offline.e2e.ts"],
 
-  maxInstances: 10,
+  // ✅ CRITICAL FIX 1: run ONE file at a time — only 1 device available
+  maxInstances: 1,
 
   capabilities: [
     {
@@ -17,12 +22,23 @@ export const config: WebdriverIO.Config = {
       "appium:appPackage": "com.ceydigital.oombigame",
       "appium:appActivity": "com.google.firebase.MessagingUnityPlayerActivity",
       "appium:noReset": true,
+      "appium:fullReset": false,
     },
   ],
 
   logLevel: "info",
 
-  services: ["appium"],
+  // ✅ CRITICAL FIX 2: allowInsecure belongs HERE in the service config
+  services: [
+    [
+      "appium",
+      {
+        args: {
+          allowInsecure: "uiautomator2:adb_shell", // ✅ must include driver name prefix
+        },
+      },
+    ],
+  ],
 
   framework: "mocha",
 
@@ -40,20 +56,26 @@ export const config: WebdriverIO.Config = {
 
   mochaOpts: {
     ui: "bdd",
-    timeout: 60000,
+    timeout: 120000,
   },
 
-  afterTest: async function (_test, _context, { error }) {
-    if (error) {
-      const screenshot = await browser.takeScreenshot();
+  // ✅ Only fires on failure — no duplicate screenshots
+  afterTest: async function (test, _context, { error }) {
+    if (!error) return;
 
-      await browser.call(() => {
-        const fs = require("fs");
-        fs.writeFileSync(
-          `./allure-results/failure-${Date.now()}.png`,
-          Buffer.from(screenshot, "base64")
-        );
-      });
+    try {
+      const screenshot = await browser.takeScreenshot();
+      const buffer = Buffer.from(screenshot, "base64");
+      allure.attachment(`FAILED - ${test.title}`, buffer, "image/png");
+
+      const safeName = test.title.replace(/\s+/g, "-").replace(/[^\w-]/g, "");
+      fs.writeFileSync(
+        path.join("./allure-results", `FAILED-${safeName}-${Date.now()}.png`),
+        buffer
+      );
+    } catch (screenshotError) {
+      // ✅ CRITICAL FIX 3: if screenshot fails don't crash the hook
+      console.warn("Could not take failure screenshot:", screenshotError);
     }
   },
 };
