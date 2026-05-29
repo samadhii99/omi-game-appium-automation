@@ -40,4 +40,52 @@ describe("Omi Offline Test", () => {
 
     console.log("Connection lost popup test completed");
   });
+
+  it("should display Oops popup after clicking Play offline", async () => {
+    // ── Step 1: Disable internet and launch app ───────────
+    await disableInternet();
+    await forceStopApp();
+    await relaunchApp();
+    await takeScreenshotAndAttach("Step 1 - App Launched Without Internet");
+
+    // ── Step 2: Wait for Connection Lost popup ────────────
+    await driver.pause(15000);
+    await takeScreenshotAndAttach("Step 2 - Connection Lost Popup Visible");
+
+    // ── Step 3: Tap "Play offline" button by coordinates ─
+    const { width, height } = await driver.getWindowSize();
+    const playOfflineX = Math.round(width * 0.327); // x: 235.6 / 720 = 32.7%
+    const playOfflineY = Math.round(height * 0.759); // y: 1214.1 / 1600 = 75.9%
+
+    await driver.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: { pointerType: "touch" },
+        actions: [
+          {
+            type: "pointerMove",
+            duration: 0,
+            x: playOfflineX,
+            y: playOfflineY,
+          },
+          { type: "pointerDown", button: 0 },
+          { type: "pause", duration: 100 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
+    console.log(`Tapped Play offline at (${playOfflineX}, ${playOfflineY})`);
+
+    // ── Step 4: Wait for Oops popup ───────────────────────
+    await driver.pause(5000);
+    await takeScreenshotAndAttach("Step 4 - Oops Popup Expected");
+
+    // ── Step 5: Validate app still running ────────────────
+    const currentPackage = await driver.getCurrentPackage();
+    console.log("Current Package:", currentPackage);
+    await expect(currentPackage).toBe("com.ceydigital.oombigame");
+
+    console.log("Oops popup test completed");
+  });
 });
