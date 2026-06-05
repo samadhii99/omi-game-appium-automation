@@ -13,7 +13,10 @@ export const config: WebdriverIO.Config = {
   "./test/specs/settings-language.e2e.ts",
 "./test/specs/profile-copy-playerid.e2e.ts",
   "./test/specs/profile-page-changes.e2e.ts",
-  "./test/specs/profile-change-avatar.e2e.ts"
+  "./test/specs/profile-change-avatar.e2e.ts",
+  "./test/specs/profile-change-frame.e2e.ts",
+  "./test/specs/home-ad-display.e2e.ts",
+  "./test/specs/home-ad-coin-reward.e2e.ts"
 ],
 
   // ✅ CRITICAL FIX 1: run ONE file at a time — only 1 device available

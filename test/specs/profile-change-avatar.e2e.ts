@@ -8,7 +8,7 @@ describe("Profile - Change Avatar", () => {
     // ── Step 1: Launch app ──────────────────────────────
     console.log("Step 1: Launching OMI app");
     await driver.launchApp();
-    await driver.pause(25000);
+    await driver.pause(28000);
     await takeScreenshotAndAttach("Step 1 - App Launched - Home Screen");
 
     // ── Step 2: Capture initial avatar from home screen ──
@@ -130,25 +130,40 @@ describe("Profile - Change Avatar", () => {
     // Using system back button or navigation back
     console.log("Step 9: Pressing back button to return to home");
     
-    try {
-      // Try Android back button first
-      await driver.back();
-      console.log("✓ Back button pressed");
-    } catch (e) {
-      // If system back doesn't work, try clicking a back button element
-      console.log("System back failed, trying to find back button element");
-      try {
-        const backButton = await driver.$("//*[@resource-id='.*back.*']");
-        await backButton.click();
-        console.log("✓ Back button element clicked");
-      } catch (e2) {
-        console.log("Could not find back button");
-      }
-    }
+  
+
+    // ── Step 6: Go back to home ────────────────────────
+    // Coordinates: x=54.9, y=1550.0
+    const backButtonX = 58.9;
+    const backButtonY = 1554.0;
+
+    console.log(
+      `Step 6: Clicking Back button at (${backButtonX}, ${backButtonY})`
+    );
+    await driver.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: { pointerType: "touch" },
+        actions: [
+          {
+            type: "pointerMove",
+            duration: 0,
+            x: backButtonX,
+            y: backButtonY,
+          },
+          { type: "pointerDown", button: 0 },
+          { type: "pause", duration: 100 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
+    console.log("✓ Back button clicked");
+
 
     // ── Step 10: Wait for home page to load ─────────────
     console.log("Step 10: Waiting for home page to load");
-    await driver.pause(2000);
+    await driver.pause(5000);
     await takeScreenshotAndAttach("Step 10 - Back to Home Screen");
 
     // ── Step 11: Verify selected avatar appears on home ──
@@ -332,8 +347,8 @@ describe("Profile - Change Avatar", () => {
     await takeScreenshotAndAttach("Step 4 - Scrolled to More Avatars");
 
     // ── Step 5: Select different avatar ─────────────────
-    const secondAvatarX = 350.0; // Slightly different coordinates
-    const secondAvatarY = 973.4;
+    const secondAvatarX = 284.6; // Slightly different coordinates
+    const secondAvatarY = 1037.4;
 
     console.log("Step 5: Selecting different avatar");
     await driver.performActions([
@@ -344,8 +359,7 @@ describe("Profile - Change Avatar", () => {
         actions: [
           {
             type: "pointerMove",
-            duration: 0,
-            x: secondAvatarX,
+            duration: 0,           x: secondAvatarX,
             y: secondAvatarY,
           },
           { type: "pointerDown", button: 0 },
@@ -359,12 +373,33 @@ describe("Profile - Change Avatar", () => {
     await takeScreenshotAndAttach("Step 5 - Different Avatar Selected");
 
     // ── Step 6: Go back to home ────────────────────────
-    console.log("Step 6: Returning to home screen");
-    try {
-      await driver.back();
-    } catch (e) {
-      console.log("Back button failed");
-    }
+    // ── Step 6: Go back to home ────────────────────────
+    // Coordinates: x=54.9, y=1550.0
+    const backButtonX = 58.9;
+    const backButtonY = 1554.0;
+
+    console.log(
+      `Step 6: Clicking Back button at (${backButtonX}, ${backButtonY})`
+    );
+    await driver.performActions([
+      {
+        type: "pointer",
+        id: "finger1",
+        parameters: { pointerType: "touch" },
+        actions: [
+          {
+            type: "pointerMove",
+            duration: 0,
+            x: backButtonX,
+            y: backButtonY,
+          },
+          { type: "pointerDown", button: 0 },
+          { type: "pause", duration: 100 },
+          { type: "pointerUp", button: 0 },
+        ],
+      },
+    ]);
+    console.log("✓ Back button clicked");
 
     await driver.pause(2000);
     await takeScreenshotAndAttach("Step 6 - Final Avatar Displayed on Home");
