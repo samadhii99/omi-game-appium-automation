@@ -1,14 +1,11 @@
-import {
-  takeScreenshotAndAttach,
-} from "../helpers/appHelpers";
+import { takeScreenshotAndAttach } from "../helpers/appHelpers";
 
 describe("Profile - Change Frame", () => {
-  
   it("should successfully change profile frame and verify on home screen", async () => {
     // ── Step 1: Launch app ──────────────────────────────
     console.log("Step 1: Launching OMI app");
     await driver.launchApp();
-    await driver.pause(3000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 1 - App Launched - Home Screen");
 
     // ── Step 2: Capture initial frame from home screen ───
@@ -65,9 +62,7 @@ describe("Profile - Change Frame", () => {
     const frameTabX = 527.2;
     const frameTabY = 510.7;
 
-    console.log(
-      `Step 5: Clicking Frame tab at (${frameTabX}, ${frameTabY})`
-    );
+    console.log(`Step 5: Clicking Frame tab at (${frameTabX}, ${frameTabY})`);
     await driver.performActions([
       {
         type: "pointer",
@@ -168,7 +163,7 @@ describe("Profile - Change Frame", () => {
       const homeProfileFrame = await driver.$(
         "//*[@resource-id='.*profile.*' or @resource-id='.*frame.*']"
       );
-      
+
       const isDisplayed = await homeProfileFrame.isDisplayed();
       if (isDisplayed) {
         console.log("✅ Frame found on home screen after change");
@@ -187,7 +182,9 @@ describe("Profile - Change Frame", () => {
       console.log("✅ PASS: Frame successfully changed and visible on home");
       await expect(frameChanged).toBe(true);
     } else {
-      console.log("✓ Frame tab navigation completed - verify visually in screenshot");
+      console.log(
+        "✓ Frame tab navigation completed - verify visually in screenshot"
+      );
       // Visual verification from screenshot
       await expect(true).toBe(true);
     }
@@ -359,7 +356,7 @@ describe("Profile - Change Frame", () => {
 
     // ── Step 7: Scroll down to see more frames ──────────
     console.log("Step 7: Scrolling down to view other frames");
-    
+
     await driver.performActions([
       {
         type: "pointer",
@@ -435,7 +432,9 @@ describe("Profile - Change Frame", () => {
     ]);
 
     await driver.pause(2000);
-    await takeScreenshotAndAttach("Step 9 - New Frame Displayed on Home Screen");
+    await takeScreenshotAndAttach(
+      "Step 9 - New Frame Displayed on Home Screen"
+    );
 
     // ── Step 10: Validate app is still running ──────────
     const currentPackage = await driver.getCurrentPackage();

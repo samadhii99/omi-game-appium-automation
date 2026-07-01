@@ -8,7 +8,7 @@ describe("Home - Ad Coin Reward Verification", () => {
     // ── Step 1: Launch app ──────────────────────────────
     console.log("Step 1: Launching OMI app");
     await driver.launchApp();
-    await driver.pause(23000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 1 - App Launched - Home Screen");
 
     // ── Step 2: Capture BEFORE screenshot (initial coins) ─
@@ -55,8 +55,8 @@ describe("Home - Ad Coin Reward Verification", () => {
 
     // ── Step 4: Click ad button ─────────────────────────
     // Coordinates: User needs to provide
-    const adButtonX = 302.6; // ← REPLACE WITH ACTUAL X
-    const adButtonY = 98.0;   // ← REPLACE WITH ACTUAL Y
+    const adButtonX = 287.6; // ← REPLACE WITH ACTUAL X
+    const adButtonY = 92.0;   // ← REPLACE WITH ACTUAL Y
 
     console.log(
       `Step 4: Clicking ad button at (${adButtonX}, ${adButtonY})`

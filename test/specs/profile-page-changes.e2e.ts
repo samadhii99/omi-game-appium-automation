@@ -1,14 +1,11 @@
-import {
-  takeScreenshotAndAttach,
-} from "../helpers/appHelpers";
+import { takeScreenshotAndAttach } from "../helpers/appHelpers";
 
 describe("Profile - Change User Name", () => {
-  
   it("should successfully change profile name from default to 'Ann'", async () => {
     // ── Step 1: Launch app ──────────────────────────────
     console.log("Step 1: Launching OMI app");
     await driver.launchApp();
-    await driver.pause(25000);
+    await driver.pause(45000);
     await takeScreenshotAndAttach("Step 1 - App Launched - Home Screen");
 
     // ── Step 2: Click Profile Icon ──────────────────────
@@ -74,8 +71,10 @@ describe("Profile - Change User Name", () => {
 
     // ── Step 5: Wait for keyboard to open ───────────────
     console.log("Step 5: Waiting for keyboard to open");
-    await driver.pause(2000);
-    await takeScreenshotAndAttach("Step 5 - Keyboard Opened - Name Field Active");
+    await driver.pause(8000);
+    await takeScreenshotAndAttach(
+      "Step 5 - Keyboard Opened - Name Field Active"
+    );
 
     // ── Step 6: Clear existing text ─────────────────────
     console.log("Step 6: Clearing existing text");
@@ -281,9 +280,9 @@ describe("Profile - Change User Name", () => {
       // Get the name text field element
       const nameField = await driver.$("//*[@resource-id='.*name.*']");
       const nameText = await nameField.getText();
-      
+
       console.log(`✓ Name field text: "${nameText}"`);
-      
+
       // Check if name is not empty and contains actual text
       if (nameText && nameText.trim().length > 0) {
         console.log(`✅ PASS: Name field is populated with: "${nameText}"`);
@@ -293,21 +292,21 @@ describe("Profile - Change User Name", () => {
         await expect(nameText.trim().length).toBeGreaterThan(0);
       } else {
         console.log("❌ FAIL: Name field is empty");
-        await takeScreenshotAndAttach(
-          "Step 14 - FAILED: Name Field is Empty"
-        );
+        await takeScreenshotAndAttach("Step 14 - FAILED: Name Field is Empty");
         await expect(nameText.trim().length).toBeGreaterThan(0);
       }
     } catch (error) {
-      console.log("❌ Could not read name field - using screenshot verification");
-      
+      console.log(
+        "❌ Could not read name field - using screenshot verification"
+      );
+
       // Fallback: Just verify the profile page is displayed
       // If we can see the name on screen (in screenshot), it's a pass
       console.log("✅ PASS: Profile page displayed with name visible");
       await takeScreenshotAndAttach(
         "Step 14 - PASS: Name Visible in Profile Screenshot"
       );
-      
+
       // This passes because the screenshot shows the name
       await expect(true).toBe(true);
     }
@@ -318,9 +317,7 @@ describe("Profile - Change User Name", () => {
     await expect(currentPackage).toBe("com.ceydigital.oombigame");
 
     // ── Step 16: Final Status ───────────────────────────
-    console.log(
-      "✅ Profile Name Change Test Completed: Default → 'Ann'"
-    );
+    console.log("✅ Profile Name Change Test Completed: Default → 'Ann'");
   });
 
   // ── Alternative Test: Change name to different value ──
@@ -328,7 +325,7 @@ describe("Profile - Change User Name", () => {
     // ── Step 1: Launch and go to profile ────────────────
     console.log("Step 1: Launching app and opening profile");
     await driver.launchApp();
-    await driver.pause(2000);
+    await driver.pause(30000);
 
     const profileIconX = 89.9;
     const profileIconY = 151.8;
@@ -383,7 +380,7 @@ describe("Profile - Change User Name", () => {
 
     // Clear and type new name using keyboard input
     console.log("Step 2: Typing custom name 'samadhi'");
-    
+
     // Alternative: Use text input directly if supported
     try {
       const textField = await driver.$("//*[@resource-id='.*name.*']");

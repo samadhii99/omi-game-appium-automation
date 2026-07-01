@@ -30,7 +30,7 @@ describe("Omi Offline Test", () => {
     await takeScreenshotAndAttach("Step 2 - App Launched Without Internet");
 
     // ── Step 3: Wait for connection lost popup ────────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 3 - Connection Lost Popup Expected");
 
     // ── Step 4: Validate app did not crash ────────────────
@@ -49,7 +49,7 @@ describe("Omi Offline Test", () => {
     await takeScreenshotAndAttach("Step 1 - App Launched Without Internet");
 
     // ── Step 2: Wait for Connection Lost popup ────────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 2 - Connection Lost Popup Visible");
 
     // ── Step 3: Tap "Play offline" button by coordinates ─
@@ -97,7 +97,7 @@ describe("Omi Offline Test", () => {
     await takeScreenshotAndAttach("Step 1 - App Launched Without Internet");
 
     // ── Step 2: Wait for Connection Lost popup ────────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 2 - Connection Lost Popup Visible");
 
     // ── Step 3: Get window size for dynamic coordinates ───
@@ -193,7 +193,7 @@ describe("Omi Offline Test", () => {
     console.log("Step 1: App launched without internet");
 
     // ── Step 2: Wait for Connection Lost popup ────────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     console.log("Step 2: Waiting for Connection Lost popup");
 
     // ── Step 3: Get window size for dynamic coordinates ───
@@ -363,7 +363,7 @@ describe("Omi Offline Test", () => {
     console.log("Step 1: App launched without internet");
 
     // ── Step 2: Wait for Connection Lost popup ────────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     console.log("Step 2: Waiting for Connection Lost popup");
     await takeScreenshotAndAttach("Step 2 - Connection Lost Popup");
 
@@ -564,7 +564,7 @@ describe("Omi Offline Test", () => {
     await takeScreenshotAndAttach("Step 1 - App Launched Offline");
 
     // ── Step 2: Navigate through setup to game ───────────
-    await driver.pause(15000);
+    await driver.pause(30000);
     console.log("Step 2: Connection Lost popup");
 
     const { width, height } = await driver.getWindowSize();

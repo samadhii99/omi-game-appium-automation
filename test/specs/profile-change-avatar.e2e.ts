@@ -8,7 +8,7 @@ describe("Profile - Change Avatar", () => {
     // ── Step 1: Launch app ──────────────────────────────
     console.log("Step 1: Launching OMI app");
     await driver.launchApp();
-    await driver.pause(28000);
+    await driver.pause(30000);
     await takeScreenshotAndAttach("Step 1 - App Launched - Home Screen");
 
     // ── Step 2: Capture initial avatar from home screen ──
@@ -16,7 +16,7 @@ describe("Profile - Change Avatar", () => {
     try {
       const homeAvatarElement = await driver.$(
         "//*[@resource-id='.*avatar.*' or @content-desc='.*avatar.*']"
-      );
+      ); 
       const isVisible = await homeAvatarElement.isDisplayed();
       if (isVisible) {
         console.log("✓ Initial avatar found on home screen");

@@ -9,15 +9,17 @@ export const config: WebdriverIO.Config = {
 
   // ✅ Run test.e2e.ts FIRST, then offline.e2e.ts
   specs: [
-  "./test/specs/offline.e2e.ts",
-  "./test/specs/settings-language.e2e.ts",
-"./test/specs/profile-copy-playerid.e2e.ts",
-  "./test/specs/profile-page-changes.e2e.ts",
-  "./test/specs/profile-change-avatar.e2e.ts",
-  "./test/specs/profile-change-frame.e2e.ts",
-  "./test/specs/home-ad-display.e2e.ts",
-  "./test/specs/home-ad-coin-reward.e2e.ts"
-],
+    "./test/specs/offline.e2e.ts",
+    "./test/specs/settings-language.e2e.ts",
+    "./test/specs/profile-copy-playerid.e2e.ts",
+    "./test/specs/profile-page-changes.e2e.ts",
+    "./test/specs/profile-change-avatar.e2e.ts",
+    "./test/specs/profile-change-frame.e2e.ts",
+    "./test/specs/home-ad-display.e2e.ts",
+    "./test/specs/home-ad-coin-reward.e2e.ts",
+    "./test/specs/settings-homepage-full-flow.e2e.ts",
+    "./test/specs/settings-advance-tab.e2e.ts",
+  ],
 
   // ✅ CRITICAL FIX 1: run ONE file at a time — only 1 device available
   maxInstances: 1,
