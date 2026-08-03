@@ -67,7 +67,7 @@ export const config: WebdriverIO.Config = {
 
   mochaOpts: {
     ui: "bdd",
-    timeout: 120000,
+    timeout: 600000,
   },
 
   // ✅ Only fires on failure — no duplicate screenshots

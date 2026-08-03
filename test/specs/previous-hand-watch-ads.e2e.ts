@@ -125,6 +125,7 @@ describe("Game - Unlock Previous Hand by Watching Ad", () => {
 
     console.log(
       `Step 4: Selecting Trump at (${selectTrumpX}, ${selectTrumpY})`
+      
     );
     await tap(selectTrumpX, selectTrumpY);
     await driver.pause(1500);
